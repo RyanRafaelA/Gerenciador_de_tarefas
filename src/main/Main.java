@@ -1,8 +1,9 @@
 package main;
 
+import negocio.ControladorPrincipal;
+
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
+		ControladorPrincipal.principal();
 	}
-
 }
