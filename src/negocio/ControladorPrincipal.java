@@ -2,6 +2,9 @@ package negocio;
 
 import java.util.Scanner;
 
+import entidade.Tarefa;
+import repositorio.RepositorioTarefa;
+
 public class ControladorPrincipal {
 	private static Scanner sc = new Scanner(System.in);
 	
@@ -12,6 +15,23 @@ public class ControladorPrincipal {
 			menu();
 			opcoes = sc.nextInt();
 			System.out.println("--------------------------------------------------------------");
+			
+			switch(opcoes) {
+			case 1:
+				sc.nextLine();
+				novaTarefa();
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			default:
+				System.out.println("Até a proxima!");
+			}
 		} while(opcoes>=1 && opcoes<=5);
 	}
 
@@ -23,5 +43,19 @@ public class ControladorPrincipal {
 				+ "[4]Atualizar\n"
 				+ "[5]Deletar"
 				+ "\nDigite uma das opções: ");
+	}
+	
+	private static void novaTarefa() {
+		String titulo;
+		String descricao;
+		
+		System.out.print("Titulo: ");
+		titulo = sc.nextLine();
+		System.out.print("Descrição: ");
+		descricao = sc.nextLine();
+		
+		Tarefa novaTarefa = new Tarefa(titulo, descricao);
+		
+		RepositorioTarefa.salvarTarefas(novaTarefa);
 	}
 }

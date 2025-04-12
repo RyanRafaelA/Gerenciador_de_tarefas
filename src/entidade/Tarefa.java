@@ -65,6 +65,6 @@ public class Tarefa {
 	
 	@Override
 	public String toString() {
-		return "Titulo: "+getTitulo()+"\nDescrição: "+getDescricao()+"\nStatus: "+getStatusTarefa()+"Data Inicio: "+getDataInicio()+"Data Termino: "+getDataTermino();
+		return "Titulo: "+getTitulo()+"\nDescrição: "+getDescricao()+"\nStatus: "+getStatusTarefa()+"\nData Inicio: "+getDataInicio()+"\nData Termino: "+getDataTermino();
 	}
 }
