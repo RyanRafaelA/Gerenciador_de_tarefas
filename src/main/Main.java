@@ -1,6 +1,6 @@
 package main;
 
-import negocio.ControladorPrincipal;
+import service.ControladorPrincipal;
 
 public class Main {
 	public static void main(String[] args) {

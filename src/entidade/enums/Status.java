@@ -1,4 +1,4 @@
-package entidade;
+package entidade.enums;
 
 public enum Status {
 	NAO_INICIADO("NAO_INICIADO"),

@@ -2,6 +2,8 @@ package entidade;
 
 import java.time.LocalDate;
 
+import entidade.enums.Status;
+
 public class Tarefa {
 	private String titulo;
 	private String descricao;
