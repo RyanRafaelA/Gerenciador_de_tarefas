@@ -39,14 +39,14 @@ public class Tarefa {
 		LocalDate dataLocal = LocalDate.now();
 		String mesAno;
 		
-		mesAno = String.format("%i/%i", dataLocal.getMonthValue(), dataLocal.getYear());
+		mesAno = String.format("%d/%d", dataLocal.getMonthValue(), dataLocal.getYear());
 		
-		if(getStatusTarefa() == Status.EM_ANDAMENTO) {
+		if(getStatusTarefa() == Status.NAO_INICIADO) {
 			this.statusTarefa = Status.EM_ANDAMENTO;
 			this.dataInicio = mesAno;
 		} else if(getStatusTarefa() == Status.EM_ANDAMENTO) {
 			this.statusTarefa = Status.FINALIZADO;
-			this.dataInicio = mesAno;
+			this.dataTermino = mesAno;
 		} else {
 			System.out.println("Não pode ser modificado depois de finalizada a tarefa.");
 		}

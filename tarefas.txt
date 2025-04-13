@@ -1,15 +1,15 @@
 Titulo: Estudos em Java
 Descrição: Nessa tarefa vou estudas tudo de java para ser um bom programador.
-Status: NAO_INICIADO
-Data Inicio: null
-Data Termino: null
-Titulo: estudos
-Descrição: estudando para ser alguem na vida
-Status: NAO_INICIADO
-Data Inicio: null
+Status: EM_ANDAMENTO
+Data Inicio: 4/2025
 Data Termino: null
 Titulo: terminar faculdade
 Descrição: termina minha faculdade de ADS
-Status: NAO_INICIADO
-Data Inicio: null
+Status: EM_ANDAMENTO
+Data Inicio: 4/2025
 Data Termino: null
+Titulo: Projetos
+Descrição: projetos 
+Status: FINALIZADO
+Data Inicio: 4/2025
+Data Termino: 4/2025

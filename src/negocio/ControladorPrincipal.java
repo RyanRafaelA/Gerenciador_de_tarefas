@@ -1,7 +1,9 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import entidade.Tarefa;
@@ -33,7 +35,7 @@ public class ControladorPrincipal {
 				break;
 			case 4:
 				sc.nextLine();
-				//atualizarTarefa();
+				atualizarTarefa();
 				break;
 			case 5:
 				sc.nextLine();
@@ -87,7 +89,7 @@ public class ControladorPrincipal {
 		tituloPesquisa = sc.nextLine();
 		
 		for(Tarefa tarefas: listaTarefas) {
-			if(tarefas.getTitulo().equals(tituloPesquisa)) {
+			if(tarefas.getTitulo().equalsIgnoreCase(tituloPesquisa)) {
 				tarefa = tarefas;
 				System.out.println("\n"+tarefas+"\n");
 			}
@@ -100,13 +102,53 @@ public class ControladorPrincipal {
 		return tarefa;
 	}
 	
-	private static void deletarTarefa() {
+	private static Tarefa deletarTarefa() {
 		Tarefa tarefaDeletar = pesquisarTarefa();
 		
 		if(tarefaDeletar != null) {
 			listaTarefas.remove(tarefaDeletar);
-			System.out.println("Tarefa deletada com sucesso.");
 			RepositorioTarefa.salvarTarefas(listaTarefas);
+			return tarefaDeletar;
+		}
+		
+		return null;
+	}
+	
+	private static void atualizarTarefa() {
+		int opcao;
+		Tarefa tarefaAtualizar = deletarTarefa();
+		
+		if(tarefaAtualizar != null) {
+			Map<Integer, Runnable> opcoesAtualizacao = new HashMap<>();
+			opcoesAtualizacao.put(1, () -> atualizarTitulo(tarefaAtualizar));
+			opcoesAtualizacao.put(2, () -> atualizarDescricao(tarefaAtualizar));
+			opcoesAtualizacao.put(3, tarefaAtualizar::modificarStatusTarefa);
+			
+			System.out.print("[1] Atualizar título\n[2] Atualizar descrição\n[3] Modificar status\nEscolha uma opção: ");
+	        opcao = sc.nextInt();
+	        sc.nextLine();
+	        
+	        Runnable acao = opcoesAtualizacao.get(opcao);
+	        
+	        if(acao != null) {
+	        	acao.run();
+	        	System.out.println("Tarefa atualizada com sucesso!");
+	        	listaTarefas.add(tarefaAtualizar);
+	        	RepositorioTarefa.salvarTarefas(listaTarefas);
+	        } else {
+	        	System.out.println("Opçao invalida.");
+	        }
 		}
 	}
+	
+	private static void atualizarTitulo(Tarefa tarefa) {
+	    System.out.print("Digite o novo título: ");
+	    tarefa.setTitulo(sc.nextLine());
+	}
+
+	private static void atualizarDescricao(Tarefa tarefa) {
+	    System.out.print("Digite a nova descrição: ");
+	    tarefa.setDescricao(sc.nextLine());
+	}
+
 }
