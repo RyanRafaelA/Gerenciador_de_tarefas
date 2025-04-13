@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import entidade.Tarefa;
@@ -22,6 +24,7 @@ public class ControladorPrincipal {
 				novaTarefa();
 				break;
 			case 2:
+				lerTodasTarefas();
 				break;
 			case 3:
 				break;
@@ -57,5 +60,13 @@ public class ControladorPrincipal {
 		Tarefa novaTarefa = new Tarefa(titulo, descricao);
 		
 		RepositorioTarefa.salvarTarefas(novaTarefa);
+	}
+	
+	private static void lerTodasTarefas() {
+		List<Tarefa> listaTarefas = new ArrayList<>(RepositorioTarefa.lerTarefas());
+		
+		for(Tarefa tarefas: listaTarefas) {
+			System.out.println(tarefas);
+		}
 	}
 }
