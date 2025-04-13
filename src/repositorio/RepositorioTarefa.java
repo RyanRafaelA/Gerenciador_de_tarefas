@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,35 +26,34 @@ public class RepositorioTarefa {
 	
 	public static List<Tarefa> lerTarefas() {
 		String linha;
-		String titulo = null, dataInicio = null, dataTermino = null, descricao = null;
+		String titulo = "", dataInicio = "", dataTermino = "", descricao = "", status = "";
 		
 		
 		try(BufferedReader br = new BufferedReader(new FileReader(CAMINHO_ARQUIVO))){
 			while((linha = br.readLine()) != null) {
 				if(linha.startsWith("Titulo: ")) {
-	                titulo = linha.substring(8);
-	            } else if(linha.startsWith("Descrição: ")) {
-	                descricao = linha.substring(11);
-	            } else if(linha.startsWith("Data Inicio: ")) {
-	                dataInicio = linha.substring(13);
-	            } else if(linha.startsWith("Data Termino: ")) {
-	                dataTermino = linha.substring(13);
+	                titulo = linha.split(": ")[1];
+	            }
+				if(linha.startsWith("Descrição: ")) {
+	                descricao = linha.split(": ")[1];
+	            }
+				if(linha.startsWith("Status: ")) {
+					status = linha.split(": ")[1];
+				}
+				if(linha.startsWith("Data Inicio: ")) {
+	                dataInicio = linha.split(": ")[1];
+	            } 
+				if(linha.startsWith("Data Termino: ")) {
+	                dataTermino = linha.split(": ")[1];
 	            }
 				
-				if(dataInicio == null && dataInicio.equals("null")) {
-					listaTarefas.add(new Tarefa(titulo, descricao));
-				} else if(dataTermino == null && dataTermino.equals("null")) {
-                	listaTarefas.add(new Tarefa(titulo, descricao, dataInicio));
-                } else {
-                	listaTarefas.add(new Tarefa(titulo, descricao, dataInicio, dataTermino));
-                }
+				if(!titulo.isEmpty() && !descricao.isEmpty() && !status.isEmpty() && !dataInicio.isEmpty() && !dataTermino.isEmpty()) {
+					listaTarefas.add(new Tarefa(titulo, descricao, status, dataInicio, dataTermino));
+				}
 			}
 		}
 		catch(IOException e) {
 			System.err.println("Erro no caminho do arquivo. "+e.getMessage());
-		}
-		catch(ParseException e1) {
-			System.err.println("Erro na formatação da data. "+e1.getMessage());
 		}
 		
 		return listaTarefas;

@@ -1,18 +1,13 @@
 package entidade;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Tarefa {
-	private SimpleDateFormat sdf = new SimpleDateFormat("MM/yyy");
-	
 	private String titulo;
 	private String descricao;
 	private Status statusTarefa;
-	private Date dataInicio;
-	private Date dataTermino;
+	private String dataInicio;
+	private String dataTermino;
 	
 	public Tarefa() {}
 	public Tarefa(String titulo, String descricao) {
@@ -20,18 +15,12 @@ public class Tarefa {
 		this.descricao = descricao;
 		statusTarefa = Status.NAO_INICIADO;
 	}
-	public Tarefa(String titulo, String descricao, String dataInicio) throws ParseException {
+	public Tarefa(String titulo, String descricao, String status, String dataInicio, String dataTermino) {
 		this.titulo = titulo;
 		this.descricao = descricao;
-		statusTarefa = Status.EM_ANDAMENTO;
-		this.dataInicio = sdf.parse(dataInicio);
-	}
-	public Tarefa(String titulo, String descricao, String dataInicio, String dataTermino) throws ParseException {
-		this.titulo = titulo;
-		this.descricao = descricao;
-		statusTarefa = Status.FINALIZADO;
-		this.dataInicio = sdf.parse(dataInicio);
-		this.dataTermino = sdf.parse(dataTermino);
+		statusTarefa = Status.stringParaStatus(status);
+		this.dataInicio = dataInicio;
+		this.dataTermino = dataTermino;
 	}
 	
 	public String getTitulo() { return titulo; }
@@ -42,11 +31,11 @@ public class Tarefa {
 	
 	public Status getStatusTarefa() { return statusTarefa; }
 	
-	public Date getDataInicio() { return dataInicio; }
+	public String getDataInicio() { return dataInicio; }
 	
-	public Date getDataTermino() { return dataTermino; }
+	public String getDataTermino() { return dataTermino; }
 	
-	public void modificarStatusTarefa() throws ParseException {
+	public void modificarStatusTarefa() {
 		LocalDate dataLocal = LocalDate.now();
 		String mesAno;
 		
@@ -54,10 +43,10 @@ public class Tarefa {
 		
 		if(getStatusTarefa() == Status.EM_ANDAMENTO) {
 			this.statusTarefa = Status.EM_ANDAMENTO;
-			this.dataInicio = sdf.parse(mesAno);
+			this.dataInicio = mesAno;
 		} else if(getStatusTarefa() == Status.EM_ANDAMENTO) {
 			this.statusTarefa = Status.FINALIZADO;
-			this.dataInicio = sdf.parse(mesAno);
+			this.dataInicio = mesAno;
 		} else {
 			System.out.println("Não pode ser modificado depois de finalizada a tarefa.");
 		}

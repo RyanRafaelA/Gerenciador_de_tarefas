@@ -35,6 +35,7 @@ public class ControladorPrincipal {
 			default:
 				System.out.println("Até a proxima!");
 			}
+			System.out.println("--------------------------------------------------------------");
 		} while(opcoes>=1 && opcoes<=5);
 	}
 
@@ -66,7 +67,7 @@ public class ControladorPrincipal {
 		List<Tarefa> listaTarefas = new ArrayList<>(RepositorioTarefa.lerTarefas());
 		
 		for(Tarefa tarefas: listaTarefas) {
-			System.out.println(tarefas);
+			System.out.println(tarefas+"\n");
 		}
 	}
 }
