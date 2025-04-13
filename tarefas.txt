@@ -8,3 +8,8 @@ Descrição: estudando para ser alguem na vida
 Status: NAO_INICIADO
 Data Inicio: null
 Data Termino: null
+Titulo: terminar faculdade
+Descrição: termina minha faculdade de ADS
+Status: NAO_INICIADO
+Data Inicio: null
+Data Termino: null

@@ -9,6 +9,7 @@ import repositorio.RepositorioTarefa;
 
 public class ControladorPrincipal {
 	private static Scanner sc = new Scanner(System.in);
+	private static List<Tarefa> listaTarefas = new ArrayList<>(RepositorioTarefa.lerTarefas());
 	
 	public static void principal() {
 		int opcoes;
@@ -31,8 +32,12 @@ public class ControladorPrincipal {
 				pesquisarTarefa();
 				break;
 			case 4:
+				sc.nextLine();
+				//atualizarTarefa();
 				break;
 			case 5:
+				sc.nextLine();
+				deletarTarefa();
 				break;
 			default:
 				System.out.println("Até a proxima!");
@@ -60,21 +65,22 @@ public class ControladorPrincipal {
 		System.out.print("Descrição: ");
 		descricao = sc.nextLine();
 		
-		Tarefa novaTarefa = new Tarefa(titulo, descricao);
+		listaTarefas.add(new Tarefa(titulo, descricao));
 		
-		RepositorioTarefa.salvarTarefas(novaTarefa);
+		RepositorioTarefa.salvarTarefas(listaTarefas);
 	}
 	
 	private static void lerTodasTarefas() {
 		List<Tarefa> listaTarefas = new ArrayList<>(RepositorioTarefa.lerTarefas());
 		
 		for(Tarefa tarefas: listaTarefas) {
-			System.out.println(tarefas+"\n");
+			System.out.println("\n"+tarefas+"\n");
 		}
 	}
 	
-	private static void pesquisarTarefa() {
-		List<Tarefa> listaTarefas = new ArrayList<>(RepositorioTarefa.lerTarefas());
+	private static Tarefa pesquisarTarefa() {
+		Tarefa tarefa = null;
+		
 		String tituloPesquisa;
 		
 		System.out.print("Digite o titulo da tarefa: ");
@@ -82,8 +88,25 @@ public class ControladorPrincipal {
 		
 		for(Tarefa tarefas: listaTarefas) {
 			if(tarefas.getTitulo().equals(tituloPesquisa)) {
-				System.out.println(tarefas);
+				tarefa = tarefas;
+				System.out.println("\n"+tarefas+"\n");
 			}
+		}
+		
+		if(tarefa == null) {
+			System.out.println("Essa tarefa não existe.");
+		}
+		
+		return tarefa;
+	}
+	
+	private static void deletarTarefa() {
+		Tarefa tarefaDeletar = pesquisarTarefa();
+		
+		if(tarefaDeletar != null) {
+			listaTarefas.remove(tarefaDeletar);
+			System.out.println("Tarefa deletada com sucesso.");
+			RepositorioTarefa.salvarTarefas(listaTarefas);
 		}
 	}
 }

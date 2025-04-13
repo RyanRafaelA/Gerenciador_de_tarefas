@@ -14,10 +14,7 @@ import entidade.Tarefa;
 public class RepositorioTarefa {
 	private static final String CAMINHO_ARQUIVO = Paths.get(System.getProperty("user.dir"), "tarefas.txt").toString();
 	
-	public static void salvarTarefas(Tarefa novaTarefa) {
-		List<Tarefa> listaTarefas = new ArrayList<>(lerTarefas());
-		listaTarefas.add(novaTarefa);
-		
+	public static void salvarTarefas(List<Tarefa> listaTarefas) {
 		try(BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))){
 			for(Tarefa tarefas: listaTarefas) {
 				bw.write(tarefas.toString());
