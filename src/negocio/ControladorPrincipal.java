@@ -27,6 +27,8 @@ public class ControladorPrincipal {
 				lerTodasTarefas();
 				break;
 			case 3:
+				sc.nextLine();
+				pesquisarTarefa();
 				break;
 			case 4:
 				break;
@@ -68,6 +70,20 @@ public class ControladorPrincipal {
 		
 		for(Tarefa tarefas: listaTarefas) {
 			System.out.println(tarefas+"\n");
+		}
+	}
+	
+	private static void pesquisarTarefa() {
+		List<Tarefa> listaTarefas = new ArrayList<>(RepositorioTarefa.lerTarefas());
+		String tituloPesquisa;
+		
+		System.out.print("Digite o titulo da tarefa: ");
+		tituloPesquisa = sc.nextLine();
+		
+		for(Tarefa tarefas: listaTarefas) {
+			if(tarefas.getTitulo().equals(tituloPesquisa)) {
+				System.out.println(tarefas);
+			}
 		}
 	}
 }
