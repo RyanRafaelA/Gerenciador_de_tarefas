@@ -13,11 +13,16 @@ import entidade.Tarefa;
 
 public class RepositorioTarefa {
 	private static final String CAMINHO_ARQUIVO = Paths.get(System.getProperty("user.dir"), "tarefas.txt").toString();
-	private static List<Tarefa> listaTarefas = new ArrayList<>();
 	
 	public static void salvarTarefas(Tarefa novaTarefa) {
+		List<Tarefa> listaTarefas = new ArrayList<>(lerTarefas());
+		listaTarefas.add(novaTarefa);
+		
 		try(BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))){
-			bw.write(novaTarefa.toString());
+			for(Tarefa tarefas: listaTarefas) {
+				bw.write(tarefas.toString());
+				bw.newLine();
+			}
 		} 
 		catch (IOException e) {
 			System.err.println("Erro no caminho do arquivo. "+e.getMessage());
@@ -25,11 +30,13 @@ public class RepositorioTarefa {
 	}
 	
 	public static List<Tarefa> lerTarefas() {
-		String linha;
+		List<Tarefa> listaTarefas = new ArrayList<>();
+		
 		String titulo = "", dataInicio = "", dataTermino = "", descricao = "", status = "";
 		
 		
 		try(BufferedReader br = new BufferedReader(new FileReader(CAMINHO_ARQUIVO))){
+			String linha;
 			while((linha = br.readLine()) != null) {
 				if(linha.startsWith("Titulo: ")) {
 	                titulo = linha.split(": ")[1];
@@ -49,6 +56,11 @@ public class RepositorioTarefa {
 				
 				if(!titulo.isEmpty() && !descricao.isEmpty() && !status.isEmpty() && !dataInicio.isEmpty() && !dataTermino.isEmpty()) {
 					listaTarefas.add(new Tarefa(titulo, descricao, status, dataInicio, dataTermino));
+					titulo = "";
+					dataInicio = "";
+					dataTermino = "";
+					descricao = "";
+					status = "";
 				}
 			}
 		}

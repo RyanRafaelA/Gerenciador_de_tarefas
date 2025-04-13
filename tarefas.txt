@@ -3,3 +3,8 @@ Descrição: Nessa tarefa vou estudas tudo de java para ser um bom programador.
 Status: NAO_INICIADO
 Data Inicio: null
 Data Termino: null
+Titulo: estudos
+Descrição: estudando para ser alguem na vida
+Status: NAO_INICIADO
+Data Inicio: null
+Data Termino: null
